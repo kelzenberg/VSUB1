@@ -9,6 +9,7 @@
 log.txt
 *.sublime-project
 *.sublime-workspace
+*.iml
 .vscode/
 
 .idea/
@@ -18,7 +19,6 @@ log.txt
 tmp/
 temp/
 $RECYCLE.BIN/
-*.iml
 
 .DS_Store
 Thumbs.db
