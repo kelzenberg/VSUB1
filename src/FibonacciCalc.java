@@ -2,10 +2,10 @@ public class FibonacciCalc {
     /**
      * @author
      */
-    public FibonacciCalc() {
+    private FibonacciCalc() {
     }
 
-    public long calculate(int num) {
+    public static long calculate(int num) {
 
         if (num <= 0)
             return 0;

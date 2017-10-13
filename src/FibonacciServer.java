@@ -6,7 +6,7 @@ public class FibonacciServer {
         String clientSentence;
         String capitalizedSentence;
         ServerSocket welcomeSocket = new ServerSocket(6789);
-        FibonacciCalc calc = new FibonacciCalc();
+        //FibonacciCalc calc = new FibonacciCalc();
 
         while (true) {
             Socket connectionSocket = welcomeSocket.accept();
@@ -19,7 +19,7 @@ public class FibonacciServer {
 
 
                 int input = Integer.parseInt(clientSentence, 10);
-                long result = calc.calculate(input);
+                long result = FibonacciCalc.calculate(input);
 
                 String response = String.valueOf(result);
 
