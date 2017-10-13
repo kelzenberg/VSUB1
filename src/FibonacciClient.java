@@ -15,7 +15,7 @@ import java.net.*;
  * Nicolai Brandt
  */
 class FibonacciClient {
-    
+
     public static void main(String argv[]) throws Exception {
         String sentence;
         String modifiedSentence;

@@ -10,7 +10,7 @@
  * @version 1.0
  */
 
-public class FibonacciCalc {
+class FibonacciCalc {
 
     private FibonacciCalc() {
     }
@@ -20,7 +20,7 @@ public class FibonacciCalc {
      * @param num the desired fibonacci number.
      * @return calculated fibonacci number.
      */
-    public static long calculate(int num) {
+    static long calculate(int num) {
 
         if (num <= 0)
             return 0;
