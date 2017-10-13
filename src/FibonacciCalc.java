@@ -5,7 +5,7 @@ public class FibonacciCalc {
     public FibonacciCalc() {
     }
 
-    public static int calculate(int num) {
+    public static long calculate(int num) {
 
         if (num <= 0)
             return 0;
@@ -15,15 +15,17 @@ public class FibonacciCalc {
             return 1;
         else {              //n=3
             int i = 3;
-            int n1 = i - 1;   //n-1
-            int n2 = i - 2;   //n-2
-            int out = 0;
+            long n1 = i - 1;   //n-1
+            long n2 = i - 2;   //n-2
+            long out = 1;
 
             while (i <= num) {   //von n=3 bis num
-                n1 = i - 1;
-                n2 = i - 2;
                 out = n1 + n2;
+                n2 = n1;
+                n1 = out;
+                
                 System.out.println(out);
+                
                 i++;
             }
             return out;
@@ -31,7 +33,7 @@ public class FibonacciCalc {
     }
 
     public static void main(String[] args) {
-        System.out.println(calculate(10));
+        System.out.println( calculate(100) );
     }
 
 }
