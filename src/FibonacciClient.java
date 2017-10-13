@@ -1,6 +1,19 @@
 import java.io.*;
 import java.net.*;
 
+/**
+ * FibonacciClient sends Input to FibonacciServer and waits for the
+ * calculated answer. Then displays the received answer.
+ *
+ * Console parameters available: input an integral number, press Enter to send it to the server
+ * Wait for the calculated answer.
+ * Kill the process to stop the client.
+ *
+ * @author
+ * Jannis Rieger
+ * Steffen Ansorge
+ * Nicolai Brandt
+ */
 class FibonacciClient {
     public static void main(String argv[]) throws Exception {
         String sentence;
@@ -8,7 +21,7 @@ class FibonacciClient {
         Socket clientSocket;
         try {
             clientSocket = new Socket("localhost", 6789);
-        } catch(ConnectException e) {
+        } catch (ConnectException e) {
             System.out.println("Server not reachable.");
             return;
         }
@@ -19,8 +32,7 @@ class FibonacciClient {
 
         while (true) {
             sentence = inFromUser.readLine();
-            //System.out.println(sentence);
-            if(sentence.equals("exit")){
+            if (sentence.equals("exit")) {
                 break;
             }
             outToServer.writeBytes(sentence + '\n');
