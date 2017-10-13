@@ -22,7 +22,9 @@ public class FibonacciServer {
 
                 String response = String.valueOf(result);
 
-                outToClient.writeBytes(response);
+                System.out.println("Calculated: " + response);
+
+                outToClient.writeBytes(response + "\n");
             }
         }
     }
