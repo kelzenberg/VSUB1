@@ -44,10 +44,9 @@ public class FibonacciServer {
 
                     // outputs calculated result & verifies output
                     System.out.println("Calculated: " + result);
-                    response = "200|" + String.valueOf(result);
-
+                    response = "200;" + String.valueOf(result);
                 } catch (NumberFormatException e) {
-                    response = "401|NaN";
+                    response = "401;NaN";
                 }
 
                 try {
