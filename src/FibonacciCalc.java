@@ -5,7 +5,7 @@ public class FibonacciCalc {
     public FibonacciCalc() {
     }
 
-    public static long calculate(int num) {
+    public long calculate(int num) {
 
         if (num <= 0)
             return 0;
@@ -30,10 +30,6 @@ public class FibonacciCalc {
             }
             return out;
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println( calculate(100) );
     }
 
 }
