@@ -24,7 +24,7 @@ public class FibonacciCalc {
                 n2 = n1;
                 n1 = out;
                 
-                System.out.println(out);
+                // System.out.println(out);
                 
                 i++;
             }

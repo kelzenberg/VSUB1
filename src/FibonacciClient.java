@@ -5,7 +5,13 @@ class FibonacciClient {
     public static void main(String argv[]) throws Exception {
         String sentence;
         String modifiedSentence;
-        Socket clientSocket = new Socket("localhost", 6789);
+        Socket clientSocket;
+        try {
+            clientSocket = new Socket("localhost", 6789);
+        } catch(ConnectException e) {
+            System.out.println("Server not reachable.");
+            return;
+        }
 
         BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
         DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
