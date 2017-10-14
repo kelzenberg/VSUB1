@@ -124,8 +124,8 @@ class FibonacciClient {
                 case "-h":
                     System.out.println("FibonacciClient");
                     System.out.println("  -h            displays this help");
-                    System.out.println("  -p [port]     sets the port to run the server on");
-                    System.out.println("  -a [address]  sets the address to run the server on");
+                    System.out.println("  -p [port]     sets the port of the server");
+                    System.out.println("  -a [address]  sets the address of the server");
                     // exit
                     System.exit(0);
                 break;
