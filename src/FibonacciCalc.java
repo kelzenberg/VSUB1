@@ -34,7 +34,7 @@ class FibonacciCalc {
             long n2 = i - 2;
             long out = 1;
 
-            while (i <= num) {
+            while (i < num) {
                 out = n1 + n2;
                 n2 = n1;
                 n1 = out;
