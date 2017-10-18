@@ -2,11 +2,9 @@
  * FibonacciCalc
  * Calculates n-th fibonacci number.
  *
- * @author
- * Jannis Rieger
+ * @author Jannis Rieger
  * Steffen Ansorge
  * Nicolai Brandt
- *
  * @version 1.0
  */
 
@@ -16,7 +14,6 @@ class FibonacciCalc {
     }
 
     /**
-     *
      * @param num the desired fibonacci number.
      * @return calculated fibonacci number.
      */
@@ -38,9 +35,9 @@ class FibonacciCalc {
                 out = n1 + n2;
                 n2 = n1;
                 n1 = out;
-                
+
                 // System.out.println(out);
-                
+
                 i++;
             }
             return out;

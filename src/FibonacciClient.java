@@ -5,13 +5,12 @@ import java.lang.String;
 /**
  * FibonacciClient sends Input to FibonacciServer and waits for the
  * calculated answer. Then displays the received answer.
- *
+ * <p>
  * Console parameters available: input an integral number, press Enter to send it to the Server
  * Wait for the calculated answer.
  * Kill the process to stop the Client.
  *
- * @author
- * Jannis Rieger
+ * @author Jannis Rieger
  * Steffen Ansorge
  * Nicolai Brandt
  */
@@ -44,30 +43,30 @@ class FibonacciClient {
             if (sentence.equals("exit")) {
                 break;
             }
-            
+
             try {
                 outToServer.writeBytes(sentence + '\n');
                 result = inFromServer.readLine();
-            } catch(IOException e) {
+            } catch (IOException e) {
                 System.out.println("Connection closed.");
                 result = ""; // needed
                 System.exit(1);
             }
             result = parseResponse(result);
-            
+
             System.out.println(result);
         }
         clientSocket.close();
     }
-    
+
     private static String parseResponse(String response) {
-        if(response == null){
+        if (response == null) {
             System.out.println("Connection closed.");
             System.exit(1);
         }
         String[] data;
         data = response.split(";");
-        switch(data[0]){
+        switch (data[0]) {
             case "200":
                 return "Result: " + data[1];
             case "401":
@@ -80,46 +79,46 @@ class FibonacciClient {
                 return "The server didn't responded correctly.";
         }
     }
-    
+
     // parses the command line arguments
     private static void parseArguments(String argv[]) {
-        for (int i = 0;i < argv.length;i++) {
-            switch(argv[i]) {
+        for (int i = 0; i < argv.length; i++) {
+            switch (argv[i]) {
                 // argument to set the port
                 case "-p":
                     i++;
                     // check if a next argument exists
-                    if(i == argv.length){
+                    if (i == argv.length) {
                         System.out.println("No port provided.");
                     } else {
                         // try to parse the argument as a number
                         try {
                             int number = Integer.parseInt(argv[i]);
                             // check if the number is a valid port
-                            if(number >= 0 && number <= 65535){
+                            if (number >= 0 && number <= 65535) {
                                 port = number;
                             } else {
                                 System.out.println("Invalid port number. (" + number + ")");
                             }
-                        } catch(NumberFormatException e) {
+                        } catch (NumberFormatException e) {
                             System.out.println("Invalid port number.");
                         }
                     }
-                break;
+                    break;
                 //argument to set the address to listen on
                 case "-a":
                     i++;
                     // check if a next argument exists
-                    if(i == argv.length){
+                    if (i == argv.length) {
                         System.out.println("No address provided.");
                     } else {
                         try {
                             address = InetAddress.getByName(argv[i]);
-                        } catch(UnknownHostException e) {
+                        } catch (UnknownHostException e) {
                             System.out.println("Invalid address. (" + argv[i] + ")");
                         }
                     }
-                break;
+                    break;
                 // display help info
                 case "-h":
                     System.out.println("FibonacciClient");
@@ -128,7 +127,7 @@ class FibonacciClient {
                     System.out.println("  -a [address]  sets the address of the server");
                     // exit
                     System.exit(0);
-                break;
+                    break;
                 default:
                     System.out.println("Unknown command line argument '" + argv[i] + "'");
             }

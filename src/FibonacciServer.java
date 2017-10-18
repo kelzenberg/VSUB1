@@ -16,7 +16,7 @@ import java.net.InetAddress;
 public class FibonacciServer {
     private static int port;
     private static InetAddress address;
-    
+
     public static void main(String argv[]) throws Exception {
         port = 8080;
         address = InetAddress.getByName("127.0.0.1");
@@ -27,14 +27,14 @@ public class FibonacciServer {
         // tries to bind to the given address and port
         try {
             welcomeSocket = new ServerSocket(port, 0, address);
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println("Unable to bind to " + address.getHostAddress() + ":" + port + ".");
             System.out.println(e.getMessage());
             System.exit(1);
             return; // needed
         }
-        
-        
+
+
         System.out.println("Server is listening on " + address.getHostAddress() + ":" + port + ".");
 
         // this loop waits for (more) Clients to connect when Server has no Client (any longer)
@@ -44,9 +44,9 @@ public class FibonacciServer {
             BufferedReader inFromClient =
                     new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
             DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
-            
+
             System.out.println("Client connected.");
-            
+
             // runs as long as Client is connected to the Server
             while (true) {
 
@@ -60,10 +60,10 @@ public class FibonacciServer {
 
                     // parses input of Client & sends it to FibonacciCalc for calculation
                     int input = Integer.parseInt(clientSentence, 10);
-                    
-                    if(input < 0){
+
+                    if (input < 0) {
                         response = "402;too low";
-                    } else if(input > 91){
+                    } else if (input > 91) {
                         response = "501;too large";
                     } else {
                         long result = FibonacciCalc.calculate(input);
@@ -87,46 +87,46 @@ public class FibonacciServer {
             }
         }
     }
-    
+
     // parses the command line arguments
     private static void parseArguments(String argv[]) {
-        for (int i = 0;i < argv.length;i++) {
-            switch(argv[i]) {
+        for (int i = 0; i < argv.length; i++) {
+            switch (argv[i]) {
                 // argument to set the port
                 case "-p":
                     i++;
                     // check if a next argument exists
-                    if(i == argv.length){
+                    if (i == argv.length) {
                         System.out.println("No port provided.");
                     } else {
                         // try to parse the argument as a number
                         try {
                             int number = Integer.parseInt(argv[i]);
                             // check if the number is a valid port
-                            if(number >= 0 && number <= 65535){
+                            if (number >= 0 && number <= 65535) {
                                 port = number;
                             } else {
                                 System.out.println("Invalid port number. (" + number + ")");
                             }
-                        } catch(NumberFormatException e) {
+                        } catch (NumberFormatException e) {
                             System.out.println("Invalid port number.");
                         }
                     }
-                break;
+                    break;
                 //argument to set the address to listen on
                 case "-a":
                     i++;
                     // check if a next argument exists
-                    if(i == argv.length){
+                    if (i == argv.length) {
                         System.out.println("No address provided.");
                     } else {
                         try {
                             address = InetAddress.getByName(argv[i]);
-                        } catch(UnknownHostException e) {
+                        } catch (UnknownHostException e) {
                             System.out.println("Invalid address. (" + argv[i] + ")");
                         }
                     }
-                break;
+                    break;
                 // display help info
                 case "-h":
                     System.out.println("FibonacciServer");
@@ -135,7 +135,7 @@ public class FibonacciServer {
                     System.out.println("  -a [address]  sets the address to run the server on");
                     // exit
                     System.exit(0);
-                break;
+                    break;
                 default:
                     System.out.println("Unknown command line argument '" + argv[i] + "'");
             }
