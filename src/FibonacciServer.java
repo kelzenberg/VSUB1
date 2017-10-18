@@ -21,17 +21,16 @@ public class FibonacciServer {
         port = 8080;
         address = InetAddress.getByName("127.0.0.1");
         parseArguments(argv);
-        String clientSentence;
-        String capitalizedSentence;
-        ServerSocket welcomeSocket;
+        String received;
+        ServerSocket socket;
         // tries to bind to the given address and port
         try {
-            welcomeSocket = new ServerSocket(port, 0, address);
+            socket = new ServerSocket(port, 0, address);
         } catch (IOException e) {
             System.out.println("Unable to bind to " + address.getHostAddress() + ":" + port + ".");
             System.out.println(e.getMessage());
             System.exit(1);
-            return; // needed
+            return; // needed for exiting program if socket threw exception
         }
 
 
@@ -40,7 +39,7 @@ public class FibonacciServer {
         // this loop waits for (more) Clients to connect when Server has no Client (any longer)
         while (true) {
 
-            Socket connectionSocket = welcomeSocket.accept();
+            Socket connectionSocket = socket.accept();
             BufferedReader inFromClient =
                     new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
             DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
@@ -51,15 +50,15 @@ public class FibonacciServer {
             while (true) {
 
                 // reads input from Client and displays it
-                clientSentence = inFromClient.readLine();
-                System.out.println("Received: " + clientSentence);
+                received = inFromClient.readLine();
+                System.out.println("Received: " + received);
 
                 String response = "";
 
                 try {
 
                     // parses input of Client & sends it to FibonacciCalc for calculation
-                    int input = Integer.parseInt(clientSentence, 10);
+                    int input = Integer.parseInt(received, 10);
 
                     if (input < 0) {
                         response = "402;too low";
@@ -77,7 +76,7 @@ public class FibonacciServer {
 
                 try {
 
-                    // displays the appropriate response to the result
+                    // displays the appropriate response to the result (without parsing needed)
                     outToClient.writeBytes(response + "\n");
 
                 } catch (IOException e) {
