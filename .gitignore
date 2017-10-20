@@ -10,6 +10,7 @@ log.txt
 *.sublime-project
 *.sublime-workspace
 .vscode/
+*.iml
 
 .idea/
 .sass-cache/
