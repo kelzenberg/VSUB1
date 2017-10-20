@@ -5,7 +5,7 @@ import java.lang.String;
 /**
  * FibonacciClient sends Input to FibonacciServer and waits for the
  * calculated answer. Then displays the received answer.
- * <p>
+ *
  * Console parameters available: input an integral number, press Enter to send it to the Server
  * Wait for the calculated answer.
  * Kill the process to stop the Client.

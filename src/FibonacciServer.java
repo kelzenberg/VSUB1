@@ -6,7 +6,7 @@ import java.net.InetAddress;
  * FibonacciServer receives Input from FibonacciClient and uses
  * FibonacciCalc to calculate the ordered Fibonacci number, then
  * sends it back to the Client.
- * <p>
+ *
  * Kill the process to stop the Server.
  *
  * @author Jannis Rieger
