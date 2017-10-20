@@ -34,23 +34,23 @@ class FibonacciClient {
             return;
         }
         System.out.println("Connection established.");
-        
+
         //Command line reader to read the user input
         BufferedReader clReader = new BufferedReader(new InputStreamReader(System.in));
         //Server ouput
         DataOutputStream serverWriter = new DataOutputStream(clientSocket.getOutputStream());
         //Server input
         BufferedReader serverReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        
+
         while (true) {
             //Reads the input from the user
             System.out.print("Enter a number: ");
             userInput = clReader.readLine();
-            //if the user entered "exit" the application exists
-            if (userInput.equals("exit")) {
+            //if the user entered "exit/stop" the application exists
+            if (userInput.equals("exit") || userInput.equals("stop")) {
                 break;
             }
-            
+
             try {
                 // tries to send the entered value to the server
                 serverWriter.writeBytes(userInput + '\n');
