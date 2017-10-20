@@ -5,7 +5,7 @@ import java.net.InetAddress;
 /**
  * FibonacciServer receives Input from FibonacciClient and uses
  * FibonacciCalc to calculate the ordered Fibonacci number, then
- * sends it back to the Client.
+ * sends it back to the client.
  * <p>
  * Kill the process to stop the Server.
  *
@@ -18,11 +18,11 @@ public class FibonacciServer {
     private static InetAddress address;
 
     public static void main(String argv[]) throws Exception {
-        port = 8080;
-        address = InetAddress.getByName("127.0.0.1");
-        parseArguments(argv);
-        String received;
-        ServerSocket socket;
+        port = 8080; // default port for this app
+        address = InetAddress.getByName("127.0.0.1"); // localhost
+        parseArguments(argv); // parse command line arguments
+        String received; // string to save last received message
+        ServerSocket socket; // main communication socket
         // tries to bind to the given address and port
         try {
             socket = new ServerSocket(port, 0, address);
@@ -37,28 +37,29 @@ public class FibonacciServer {
         System.out.println("Server is listening on " + address.getHostAddress() + ":" + port + ".");
         System.out.println("Host address: " + InetAddress.getLocalHost());
 
-        // this loop waits for (more) Clients to connect when Server has no Client (any longer)
+        // this loop waits for (more) clients to connect when Server has no client (any longer)
         while (true) {
 
-            Socket connectionSocket = socket.accept();
+            Socket connectionSocket = socket.accept(); // wait for client connection
             BufferedReader inFromClient =
-                    new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-            DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
+                    new BufferedReader(new InputStreamReader(connectionSocket.getInputStream())); // create a stream reader for socket
+            DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream()); // create a stream writer for socket
 
             System.out.println("Client connected.");
 
-            // runs as long as Client is connected to the Server
+            // runs as long as client is connected to the Server
             while (true) {
 
-                // reads input from Client and displays it
+                // reads input from client and displays it
                 received = inFromClient.readLine();
                 System.out.println("Received: " + received);
 
-                String response = "";
+                String response = ""; // empty string to build response in
 
                 try {
 
-                    // parses input of Client & sends it to FibonacciCalc for calculation
+                    // parses input of client & sends it to FibonacciCalc for calculation
+                    // handles invalid input and responds corresponding
                     int input = Integer.parseInt(received, 10);
 
                     if (input < 0) {
@@ -78,7 +79,7 @@ public class FibonacciServer {
                 try {
 
                     // displays the appropriate response to the result (without parsing needed)
-                    outToClient.writeBytes(response + "\n");
+                    outToClient.writeBytes(response + "\n"); // writes bytes because the client needs the new line character for its readline method.
 
                 } catch (IOException e) {
                     System.out.println("Client disconnected!");
