@@ -5,7 +5,7 @@ import java.lang.String;
 /**
  * FibonacciClient sends Input to FibonacciServer and waits for the
  * calculated answer. Then displays the received answer.
- * <p>
+ * 
  * Console parameters available: input an integral number, press Enter to send it to the Server
  * Wait for the calculated answer.
  * Kill the process to stop the Client.
@@ -19,17 +19,18 @@ class FibonacciClient {
     private static InetAddress address;
 
     public static void main(String argv[]) throws Exception {
-        port = 8080;
-        address = InetAddress.getByName("127.0.0.1");
+        port = 8080; // the standart port
+        address = InetAddress.getByName("127.0.0.1"); // the standart address
         //Parses the command line arguments
         parseArguments(argv);
         String userInput; //input of the user
-        String result; //answer of the server
+        String result; //answer from the server
         Socket clientSocket; //The socket
         try {
-            //tries to connect to the server
+            // tries to open a socket to the server at address:port
             clientSocket = new Socket(address, port);
         } catch (ConnectException e) {
+            // Connection failed
             System.out.println("Server not reachable.");
             return;
         }
@@ -37,14 +38,14 @@ class FibonacciClient {
 
         //Command line reader to read the user input
         BufferedReader clReader = new BufferedReader(new InputStreamReader(System.in));
-        //Server ouput
+        //Stream to send data through the socket to the server
         DataOutputStream serverWriter = new DataOutputStream(clientSocket.getOutputStream());
-        //Server input
+        //Stream for receiving data through the socket from the server
         BufferedReader serverReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
         while (true) {
-            //Reads the input from the user
             System.out.print("Enter a number: ");
+            //Reads the input from the user
             userInput = clReader.readLine();
             //if the user entered "exit/stop" the application exists
             if (userInput.equals("exit") || userInput.equals("stop")) {
@@ -59,7 +60,7 @@ class FibonacciClient {
             } catch (IOException e) {
                 //An error occoured while writing the value to the server or while reading the response
                 System.out.println("Connection closed.");
-                result = ""; // needed
+                result = ""; // this needs to be set otherwise it doesn't compile
                 System.exit(1);
             }
             //parses the response of the server
@@ -101,6 +102,7 @@ class FibonacciClient {
     }
 
     // parses the command line arguments
+    // argv contains the command line arguments split by the space character
     private static void parseArguments(String argv[]) {
         for (int i = 0; i < argv.length; i++) {
             switch (argv[i]) {
@@ -109,6 +111,7 @@ class FibonacciClient {
                     i++;
                     // check if a next argument exists
                     if (i == argv.length) {
+                        // if not the user just used "-p" without a port afterwards
                         System.out.println("No port provided.");
                     } else {
                         // try to parse the argument as a number
@@ -116,23 +119,27 @@ class FibonacciClient {
                             int number = Integer.parseInt(argv[i]);
                             // check if the number is a valid port
                             if (number >= 0 && number <= 65535) {
+                                // number is valid and saved as the port
                                 port = number;
                             } else {
                                 System.out.println("Invalid port number. (" + number + ")");
                             }
                         } catch (NumberFormatException e) {
+                            // The argument couldn't be parsed
                             System.out.println("Invalid port number.");
                         }
                     }
                     break;
-                //argument to set the address to listen on
+                //argument to set the address to connect to
                 case "-a":
                     i++;
                     // check if a next argument exists
                     if (i == argv.length) {
+                        // if not the user just used "-a" without an address afterwards
                         System.out.println("No address provided.");
                     } else {
                         try {
+                            // tries to parse the argument as a valid ip address
                             address = InetAddress.getByName(argv[i]);
                         } catch (UnknownHostException e) {
                             System.out.println("Invalid address. (" + argv[i] + ")");
