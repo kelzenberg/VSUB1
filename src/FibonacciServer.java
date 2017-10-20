@@ -35,6 +35,7 @@ public class FibonacciServer {
 
 
         System.out.println("Server is listening on " + address.getHostAddress() + ":" + port + ".");
+        System.out.println("Host address: " + InetAddress.getLocalHost());
 
         // this loop waits for (more) Clients to connect when Server has no Client (any longer)
         while (true) {
